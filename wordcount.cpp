@@ -1,40 +1,50 @@
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <sstream>
+#include <string>
 
 using namespace std;
 
 int countWordsInFile(const string& filename) {
-    ifstream file(filename);
+    ifstream sfile(filename); //open the file
     string word;
-    int wordCount = 0;
+    int wordcount = 0;
 
-    if (!file.is_open()) {
-        cout << "Error: Unable to open file." << endl;
-        return -1; // Return -1 to indicate error
+    if(!sfile.is_open()) {
+        //checks if the file is opened successfully
+        cout <<"Error : can't open file. " << endl;
+        return -1; // return -1 shows error
+
+    }
+    // read words from the sfile
+    while (sfile >> word)
+    {
+        wordcount++ ; //increase the wordcount for each word 
     }
 
-    while (file >> word) {
-        ++wordCount;
-    }
+    sfile.close(); //closes the file
 
-    file.close();
-
-    return wordCount;
+    return wordcount; // return the total word count
+    
 }
 
 int main() {
     string filename;
-    
-    cout << "Enter the file name: ";
+    //input from user for file name 
+
+    cout << "Enter the file name in which you want to count words in : ";
     cin >> filename;
 
-    int wordCount = countWordsInFile(filename);
+    //call the function to count words 
+    int wordcount = countWordsInFile(filename);
 
-    if (wordCount >= 0) {
-        cout << "Total word count in file '" << filename << "': " << wordCount << endl;
+    //output the total words 
+    if (wordcount >= 0)
+    {
+        cout << "Total number of words in the file -> " << filename << " : " << wordcount << endl;
+
     }
 
     return 0;
+    
 }
